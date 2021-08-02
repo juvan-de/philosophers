@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/07/08 15:16:43 by julesvander   ########   odam.nl         */
+/*   Updated: 2021/08/02 13:13:54 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,12 @@ int				ft_atoi(const char *str)
 	return (res);
 }
 
-size_t	time_passed_in_ms(struct timeval pre_time, struct timeval post_time)
+size_t	time_passed_in_ms(size_t pre_time)
 {
-	size_t	res;
+	struct timeval time;
+	size_t	current;
 
-	if (pre_time.tv_sec == post_time.tv_sec)
-	{
-		res = ((post_time.tv_usec - pre_time.tv_usec) / 1000);
-	}
-	else
-	{
-		res = ((post_time.tv_usec + (1000000 - pre_time.tv_usec)) / 1000) + ((post_time.tv_sec - pre_time.tv_sec) * 1000);
-	}
-	return (res);
+	gettimeofday(&time, NULL);
+	current = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (current - pre_time);
 }

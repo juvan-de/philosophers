@@ -6,7 +6,7 @@
 #    By: julesvanderhoek <julesvanderhoek@studen      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/06 17:31:34 by julesvander   #+#    #+#                  #
-#    Updated: 2021/07/08 14:35:09 by julesvander   ########   odam.nl          #
+#    Updated: 2021/08/02 15:37:33 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
 LIB = 
 
-CFLAGS =
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
