@@ -6,18 +6,20 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/07 16:37:36 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 13:55:19 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 16:57:55 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	data_init_two(t_data *data, pthread_mutex_t *mutex, char **argv)
+void	data_init_two(t_data *data, pthread_mutex_t *mutex, char **argv)
 {
 	data->full_philos = 0;
 	data->mutex = mutex;
 	data->philo_is_ded = false;
 	data->must_eat = -1;
+	pthread_mutex_init(&(data->write), NULL);
+	pthread_mutex_init(&(data->death_check), NULL);
 	if (argv[5])
 		data->must_eat = ft_atoi(argv[5]);
 }
@@ -68,16 +70,17 @@ void	check_if_done(t_philo *philos, t_data *data)
 	i = 0;
 	while (data->full_philos < data->philo_num)
 	{
+		usleep(100);
 		if (i == data->philo_num)
 			i = 0;
 		pthread_mutex_lock(&philos->data->death_check);
 		if (time_passed_in_ms(philos[i].last_dinner)
-			> data->time_to_die && philos[i].is_full == false)
+			>= data->time_to_die && philos[i].is_full == false)
 		{
-			printf("[%zu ms] philosopher %d has died\n",
-				time_passed_in_ms(data->start_sim), i + 1);
+			philo_print("has died", &philos[i]);
 			philos[i].is_alive = false;
 			data->philo_is_ded = true;
+			pthread_mutex_unlock(&philos->data->death_check);
 			return ;
 		}
 		pthread_mutex_unlock(&philos->data->death_check);
@@ -100,5 +103,10 @@ void	create_threads(pthread_t *threads, t_philo *philos, t_data *data)
 	}
 	i = 0;
 	check_if_done(philos, data);
+	while (i < data->philo_num)
+	{
+		pthread_join((threads[i]), NULL);
+		i++;
+	}
 	goto_exit(philos, threads);
 }

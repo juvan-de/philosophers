@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 14:25:26 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 13:57:03 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 16:52:46 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	philo_eat(t_philo *philo)
 	struct timeval	time_passed;
 
 	gettimeofday(&time_passed, NULL);
-	printf("[%zu ms] philosopher %d is eating\n",
-		time_passed_in_ms(philo->data->start_sim), philo->id);
+	philo_print("is eating", philo);
 	pthread_mutex_lock(&philo->data->death_check);
 	philo->last_dinner = time_passed.tv_sec * 1000 + time_passed.tv_usec / 1000;
 	philo->times_eaten++;
@@ -36,14 +35,12 @@ void	philo_eat(t_philo *philo)
 void	philo_think(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->mutex[philo->id - 1]));
-	printf("[%zu ms] philosopher %d has taken a fork1\n",
-		time_passed_in_ms(philo->data->start_sim), philo->id);
+	philo_print("has taken a fork", philo);
 	if (philo->id == philo->data->philo_num)
 		pthread_mutex_lock(&(philo->data->mutex[0]));
 	else
 		pthread_mutex_lock(&(philo->data->mutex[philo->id]));
-	printf("[%zu ms] philosopher %d has taken a fork2\n",
-		time_passed_in_ms(philo->data->start_sim), philo->id);
+	philo_print("has taken a fork", philo);
 }
 
 void	philo_sleep(t_philo *philo)
@@ -53,17 +50,15 @@ void	philo_sleep(t_philo *philo)
 
 	gettimeofday(&current, NULL);
 	convertable = current.tv_sec * 1000 + current.tv_usec / 1000;
-	printf("[%zu ms] philosopher %d is sleeping\n",
-		time_passed_in_ms(philo->data->start_sim), philo->id);
-	while (time_passed_in_ms(convertable) <= philo->data->time_to_eat)
+	philo_print("is sleeping", philo);
+	while (time_passed_in_ms(convertable) <= philo->data->time_to_sleep)
 		usleep(100);
-	printf("[%zu ms] philosopher %d is thinking\n",
-		time_passed_in_ms(philo->data->start_sim), philo->id);
+	philo_print("is thinking", philo);
 }
 
 void	philo_actions(t_philo *philo)
 {
-	while (philo->is_alive == true && philo->is_full == false)
+	while (philo->is_full == false && philo->data->philo_is_ded == false)
 	{
 		philo_think(philo);
 		philo_eat(philo);

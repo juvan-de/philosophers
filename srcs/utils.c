@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 13:58:00 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 16:57:33 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ size_t	time_passed_in_ms(size_t pre_time)
 	gettimeofday(&time, NULL);
 	current = time.tv_sec * 1000 + time.tv_usec / 1000;
 	return (current - pre_time);
+}
+
+void	philo_print(char *message, t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->write));
+	if (philo->data->philo_is_ded == false)
+		printf("[%zu ms] philosopher %d %s\n",
+			time_passed_in_ms(philo->data->start_sim), philo->id, message);
+	pthread_mutex_unlock(&(philo->data->write));
 }
