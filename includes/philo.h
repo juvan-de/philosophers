@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:41 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 16:26:59 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 17:05:00 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct		s_data
+typedef struct s_data
 {
 	int				philo_num;
 	size_t			time_to_die;
@@ -35,7 +35,7 @@ typedef struct		s_data
 	bool			philo_is_ded;
 }					t_data;
 
-typedef struct		s_philo
+typedef struct s_philo
 {
 	int				id;
 	t_data			*data;
@@ -51,7 +51,7 @@ typedef struct		s_philo
 
 int					data_init(char **argv, t_data *data);
 void				create_threads(pthread_t *threads, t_philo *philos,
-												t_data *data);
+						t_data *data);
 void				goto_exit(t_philo *philo, pthread_t *threads);
 
 /*
