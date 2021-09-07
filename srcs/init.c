@@ -6,11 +6,21 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/07 16:37:36 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/08/02 16:42:07 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 13:55:19 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	data_init_two(t_data *data, pthread_mutex_t *mutex, char **argv)
+{
+	data->full_philos = 0;
+	data->mutex = mutex;
+	data->philo_is_ded = false;
+	data->must_eat = -1;
+	if (argv[5])
+		data->must_eat = ft_atoi(argv[5]);
+}
 
 int	data_init(char **argv, t_data *data)
 {
@@ -33,12 +43,7 @@ int	data_init(char **argv, t_data *data)
 		pthread_mutex_init(&(mutex[i]), NULL);
 		i++;
 	}
-	data->full_philos = 0;
-	data->mutex = mutex;
-	data->philo_is_ded = false;
-	data->must_eat = -1;
-	if (argv[5])
-		data->must_eat = ft_atoi(argv[5]);
+	data_init_two(data, mutex, argv);
 	return (0);
 }
 
@@ -66,7 +71,8 @@ void	check_if_done(t_philo *philos, t_data *data)
 		if (i == data->philo_num)
 			i = 0;
 		pthread_mutex_lock(&philos->data->death_check);
-		if (time_passed_in_ms(philos[i].last_dinner) > data->time_to_die && philos[i].is_full == false)
+		if (time_passed_in_ms(philos[i].last_dinner)
+			> data->time_to_die && philos[i].is_full == false)
 		{
 			printf("[%zu ms] philosopher %d has died\n",
 				time_passed_in_ms(data->start_sim), i + 1);
@@ -81,14 +87,15 @@ void	check_if_done(t_philo *philos, t_data *data)
 
 void	create_threads(pthread_t *threads, t_philo *philos, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_num)
 	{
 		init_philo((&philos[i]), i, data);
 		usleep(100);
-		pthread_create((&threads[i]), NULL, (void*)philo_actions, (&philos[i]));
+		pthread_create((&threads[i]), NULL,
+			(void*) philo_actions, (&philos[i]));
 		i++;
 	}
 	i = 0;

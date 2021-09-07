@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 17:33:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/08/02 15:30:57 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 13:56:03 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	goto_exit(t_philo *philo, pthread_t *threads)
 	return ;
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int	i;
-	t_data data;
-	pthread_t *threads;
-	t_philo *philos;
+	int			i;
+	t_data		data;
+	pthread_t	*threads;
+	t_philo		*philos;
 
 	if (argc < 5 || argc > 6)
 	{

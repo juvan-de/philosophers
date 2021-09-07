@@ -6,20 +6,20 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/08/02 13:13:54 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/07 13:58:00 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int		prework_atoi(const char *str, int *negative_check)
+static int	prework_atoi(const char *str, int *negative_check)
 {
-	int i;
+	int	i;
 
 	*negative_check = 1;
 	i = 0;
 	while (str[i] == 32 || (str[i] <= 13 && str[i] >= 9) || (str[i] == '+'
-		&& str[i + 1] >= '0' && str[i + 1] <= '9'))
+			&& str[i + 1] >= '0' && str[i + 1] <= '9'))
 		i++;
 	if (str[i] == '-')
 	{
@@ -29,7 +29,7 @@ static int		prework_atoi(const char *str, int *negative_check)
 	return (i);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			i;
 	int			negative_check;
@@ -60,8 +60,8 @@ int				ft_atoi(const char *str)
 
 size_t	time_passed_in_ms(size_t pre_time)
 {
-	struct timeval time;
-	size_t	current;
+	struct timeval	time;
+	size_t			current;
 
 	gettimeofday(&time, NULL);
 	current = time.tv_sec * 1000 + time.tv_usec / 1000;
