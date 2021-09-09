@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:41 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 17:05:00 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 14:04:58 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 typedef struct s_data
 {
 	int				philo_num;
+	int				must_eat;
+	int				full_philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	int				must_eat;
 	size_t			start_sim;
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	death_check;
 	pthread_mutex_t	write;
-	int				full_philos;
 	bool			philo_is_ded;
 }					t_data;
 
@@ -66,6 +66,6 @@ void				philo_actions(t_philo *philo);
 
 int					ft_atoi(const char *str);
 size_t				time_passed_in_ms(size_t pre_time);
-void				philo_print(char *message, t_philo *philo);
+void				philo_print(char *message, t_philo *philo, bool ded);
 
 #endif

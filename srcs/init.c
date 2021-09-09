@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/07 16:37:36 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/07 16:57:55 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 14:04:36 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	check_if_done(t_philo *philos, t_data *data)
 		if (time_passed_in_ms(philos[i].last_dinner)
 			>= data->time_to_die && philos[i].is_full == false)
 		{
-			philo_print("has died", &philos[i]);
 			philos[i].is_alive = false;
 			data->philo_is_ded = true;
+			philo_print("has died", &philos[i], true);
 			pthread_mutex_unlock(&philos->data->death_check);
 			return ;
 		}
