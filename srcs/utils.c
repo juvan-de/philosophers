@@ -6,39 +6,23 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 18:29:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/09 14:04:25 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 18:19:04 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	prework_atoi(const char *str, int *negative_check)
+size_t	ft_atos(const char *str)
 {
-	int	i;
+	int		i;
+	size_t	res;
+	size_t	checker;
 
-	*negative_check = 1;
+	res = 0;
 	i = 0;
 	while (str[i] == 32 || (str[i] <= 13 && str[i] >= 9) || (str[i] == '+'
 			&& str[i + 1] >= '0' && str[i + 1] <= '9'))
 		i++;
-	if (str[i] == '-')
-	{
-		i++;
-		*negative_check = -1;
-	}
-	return (i);
-}
-
-int	ft_atoi(const char *str)
-{
-	int			i;
-	int			negative_check;
-	long int	res;
-	long int	checker;
-
-	res = 0;
-	negative_check = 1;
-	i = prework_atoi(str, &negative_check);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		checker = res;
@@ -47,14 +31,8 @@ int	ft_atoi(const char *str)
 		if (res >= checker)
 			i++;
 		else
-		{
-			if (negative_check == -1)
-				return (0);
-			else
-				return (-1);
-		}
+			return (0);
 	}
-	res = (int)res * negative_check;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/07 16:37:36 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/09 14:04:36 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 18:22:59 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	data_init_two(t_data *data, pthread_mutex_t *mutex, char **argv)
 	pthread_mutex_init(&(data->write), NULL);
 	pthread_mutex_init(&(data->death_check), NULL);
 	if (argv[5])
-		data->must_eat = ft_atoi(argv[5]);
+		data->must_eat = ft_atos(argv[5]);
 }
 
 int	data_init(char **argv, t_data *data)
@@ -33,12 +33,14 @@ int	data_init(char **argv, t_data *data)
 	i = 0;
 	gettimeofday(&start, NULL);
 	data->start_sim = start.tv_sec * 1000 + start.tv_usec / 1000;
-	data->philo_num = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
+	data->philo_num = ft_atos(argv[1]);
+	data->time_to_die = ft_atos(argv[2]);
+	data->time_to_eat = ft_atos(argv[3]);
+	data->time_to_sleep = ft_atos(argv[4]);
 	mutex = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-	if (!mutex)
+	if (!mutex || data->philo_num <= 1 || data->philo_num > 200
+		|| data->time_to_die < 60 || data->time_to_eat < 60
+		|| data->time_to_sleep < 60)
 		return (1);
 	while (i < data->philo_num)
 	{
