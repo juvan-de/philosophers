@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/06 17:33:08 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/09 17:50:48 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 17:56:16 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	i = data_init(argv, &data);
-	if (i == 1 || data.philo_num == 1)
+	if (i == 1 || data.philo_num <= 1)
 	{
 		printf("Invalid input\n");	
 		return (0);
