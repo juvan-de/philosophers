@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 14:25:26 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/09 14:05:34 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/09 14:13:58 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_actions(t_philo *philo)
 {
-	
 	while (philo->is_full == false && philo->data->philo_is_ded == false)
 	{
 		philo_think(philo);
