@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/07 16:37:36 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/13 14:01:09 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/13 14:11:03 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	data_init(char **argv, t_data *data)
 	mutex = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	if (!mutex || data->philo_num < 1 || data->philo_num > 200
 		|| data->time_to_die < 60 || data->time_to_eat < 60
-		|| data->time_to_sleep < 60)
+		|| data->time_to_sleep < 60 || data->must_eat <= 0)
 		return (1);
 	while (i < data->philo_num)
 	{
