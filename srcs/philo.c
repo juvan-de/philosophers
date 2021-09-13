@@ -6,7 +6,7 @@
 /*   By: julesvanderhoek <julesvanderhoek@studen      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/08 14:25:26 by julesvander   #+#    #+#                 */
-/*   Updated: 2021/09/09 14:13:58 by juvan-de      ########   odam.nl         */
+/*   Updated: 2021/09/13 14:05:15 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	philo_eat(t_philo *philo)
 		usleep(100);
 	pthread_mutex_unlock(&(philo->data->mutex[philo->id - 1]));
 	gettimeofday(&time_passed, NULL);
-	if (philo->id == philo->data->philo_num)
+	if (philo->data->philo_num == 1)
+		return ;
+	else if (philo->id == philo->data->philo_num)
 		pthread_mutex_unlock(&(philo->data->mutex[0]));
 	else
 		pthread_mutex_unlock(&(philo->data->mutex[philo->id]));
@@ -36,7 +38,12 @@ void	philo_think(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->mutex[philo->id - 1]));
 	philo_print("has taken a fork", philo, false);
-	if (philo->id == philo->data->philo_num)
+	if (philo->data->philo_num == 1)
+	{
+		usleep(philo->data->time_to_die * 1000);
+		return ;
+	}
+	else if (philo->id == philo->data->philo_num)
 		pthread_mutex_lock(&(philo->data->mutex[0]));
 	else
 		pthread_mutex_lock(&(philo->data->mutex[philo->id]));
